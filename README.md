@@ -1,2 +1,2 @@
-# time-series-analysis
+# time-series-forecasting-analysis
 Time series and forecasting methods in R
