@@ -20,4 +20,5 @@ sapply(0:10, g)
 benchmark(f(10), f(15), f(20))
 benchmark(g(10), g(15), g(20))
 
-benchmark(f(20), g(20))
+benchmark(f(40), g(40), replications = 1)
+
