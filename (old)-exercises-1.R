@@ -53,7 +53,7 @@ souvenir.diff2 <- diff(souvenir.ts, differences = 2)
 autoplot(souvenir.diff2)
 
 # Explain how finite differencing might correct for trend.
-# It looks at the growth of the trend using discrete differentiation
+# It looks at the growth of the trend using discrete differentiation?
 
 # c) For the souvenir dataset, determine the period of seasonality and argue if an
 # additive or a multiplicative seasonal model seems most adequate.
@@ -70,14 +70,17 @@ autoplot(souvenir.deco$random)
 souvenir.decodiff <- decompose(souvenir.diff1, type="multiplicative")
 autoplot(souvenir.decodiff)
 
+ggtsdisplay(souvenir.decodiff$random)
 # There is 1 outlier,
 autoplot(souvenir.decodiff$random)
 
 # d) Inspect seasonal differencing
-nsdiffs(souvenir.ts)
+nsdiffs(souvenir.ts) # Suggested seasonal order number
 
 souvenir.sdiff <- diff(souvenir.ts, differencing = 1, lag = 12)
+
 autoplot(souvenir.sdiff)
+ggtsdisplay(souvenir.sdiff)
 
 # e) Combine both finite and seasonal differencing
 souvenir.diff <- diff(souvenir.ts, differencing = 1)
