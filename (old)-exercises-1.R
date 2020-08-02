@@ -139,19 +139,9 @@ acf(souvenir.sdiff, lag.max = 12)
 # c)
 souvenir.ma3 <- filter(souvenir.ts,filter=rep(1/3,3),sides=2)
 souvenir.ma9 <- filter(souvenir.ts,filter=rep(1/9,9),sides=2)
-souvenir.spec <- spectrum(souvenir.ts)
 
 autoplot(souvenir.ma3)
 autoplot(souvenir.ma9)
 
-# exercise 1.3
-# a)
+spectrum(souvenir.ts, method = "pgram")
 
-# b)
-# c)
-
-
-# Plotting time lag
-gglagplot(dust.ts, lags=12, do.lines=F)
-
-ggtsdisplay(dust.ts)
