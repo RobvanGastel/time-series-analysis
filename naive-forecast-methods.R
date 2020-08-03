@@ -32,3 +32,17 @@ z <- arima.sim(model= list(order = c(0, 1, 0)), n=200, mean=1,sd=5)
 autoplot(z)
 
 autoplot(rwf(z, drift=TRUE))
+
+# Residuals
+checkresiduals(y.naive)
+
+# Examples of Box test
+Box.test(z) # Not significant
+Box.test(y) # Significant
+
+# ACF useful for residuals
+ggAcf(y.naive$residuals)
+
+
+
+

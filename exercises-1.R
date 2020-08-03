@@ -72,10 +72,8 @@ grid.arrange(tsplot, ma3, ma9, ncol = 3)
 # EWMA Smoothing
 autoplot(smooth(airline.ts, kind = "3RSS"))
 
-# Spectrum transformation
-# peridiogram or AR
-spectrum(airline.ts)
-spectrum(airline.ts, method = "ar")
+# Spectrum transformation, peridiogram
+spec.pgram(airline.ts, span = 10)
 
 # Variance stabilization
 # Log transform
@@ -102,3 +100,69 @@ qqnorm(airline.BC)
 
 
 # exercise 1.3
+load('./data/ARMAsimulations.RData')
+
+# a)
+arma.ts1 <- ts(ARMA.simulations$ARMA1)
+arma.ts2 <- ts(ARMA.simulations$ARMA2)
+arma.ts3 <- ts(ARMA.simulations$ARMA3)
+
+grid.arrange(autoplot(arma.ts1), autoplot(arma.ts2), autoplot(arma.ts3))
+
+# b)
+ggtsdisplay(arma.ts1)
+ggtsdisplay(arma.ts2)
+ggtsdisplay(arma.ts3)
+
+# c)
+spec.pgram(arma.ts1, span = 10)
+spec.pgram(arma.ts2, span = 10)
+spec.pgram(arma.ts3, span = 10)
+
+
+# exercise 1.4
+load("./data/skirts.RData")
+
+z <- arima.sim(model = list(order = c(0, 1, 0)), n=400, mean=0.5,sd=2)
+ggtsdisplay(ts(z))
+# A corresponds to 1
+
+# B corresponds to 4,
+# a fast changing seismic wave
+
+z <- decompose(airline.ts)
+ggtsdisplay(z$seasonal)
+# D corresponds to 3
+
+skirt.ts <- ts(skirts, start=1866, frequency=1)
+autoplot(skirt.ts)
+ggtsdisplay(skirt.ts)
+# C corresponds to 2,
+# as example look at the skirts plot
+
+
+# exercise 1.5
+z <- arima.sim(model = list(order = c(0, 1, 0)), n=400, mean=0.5,sd=2)
+z.ts <- ts(z)
+z.pg <- spec.pgram(z.ts, span = 10)
+ggtsdisplay(z.pg$freq)
+
+y <- decompose(airline.ts)
+y.pg <- spec.pgram(y$seasonal)
+ggtsdisplay(log1p(y.pg$freq))
+
+
+# exercise 1.6
+airline.decomp <- decompose(airline.ts)
+ggtsdisplay(airline.decomp$trend)
+
+ggtsdisplay(ts(ausbeer))
+
+# TS1 corresponds to AC2
+# TS2 corresponds to AC3
+# TS3 corresponds to AC1
+
+
+
+
+
