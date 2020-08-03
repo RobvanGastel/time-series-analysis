@@ -8,21 +8,23 @@ ggtsdisplay(y)
 
 # Applying naive forecasting as comparison
 
-# Use mean as forecast
+# Without seasonality
+# Averaging method, Use mean as forecast
 y.mean <- meanf(y)
 y.p1 <- autoplot(y.mean)
 
-# Forecast the last observed of the observation
+# Naive method or Random Walk, Use the last observation of as forecast
 y.naive <- naive(y)
 y.p2 <- autoplot(y.naive)
 
-# Forecast the last observed from the same season of the year
-y.snaive <- snaive(y)
-y.p3 <- autoplot(y.snaive)
-
-# Forecast using the last observation plus the drift in mean
+# Random Walk w/ Drift, Last observation plus average change
 y.dnaive <- rwf(y, drift=TRUE)
-y.p4 <- autoplot(y.dnaive)
+y.p3 <- autoplot(y.dnaive)
+
+# With seasonality
+# Seasonal Naive method, Use the last observation of the same season as forecast
+y.snaive <- snaive(y)
+y.p4 <- autoplot(y.snaive)
 
 # Compare plots
 grid.arrange(y.p1, y.p2, y.p3, y.p4, ncol = 4)
@@ -30,8 +32,6 @@ grid.arrange(y.p1, y.p2, y.p3, y.p4, ncol = 4)
 # Generate white noise with drift
 z <- arima.sim(model= list(order = c(0, 1, 0)), n=200, mean=1,sd=5)
 autoplot(z)
-
-autoplot(rwf(z, drift=TRUE))
 
 # Residuals
 checkresiduals(y.naive)
