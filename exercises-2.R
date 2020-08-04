@@ -1,4 +1,4 @@
-library(forecast)
+library(fpp2)
 
 # exercise 2.1
 load('./data/GoldenGate.RData')
