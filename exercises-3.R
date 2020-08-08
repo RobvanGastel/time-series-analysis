@@ -121,21 +121,91 @@ e4.ts <- arima.sim(list(order=c(2,0,0), ar=c(0.75, 0.25)), n=250)
 ggtsdisplay(e4.ts)
 
 
-# TODO: exercise 3.5
+# exercise 3.5
 # a)
 # X_t = Z_t + 0.75 Z_t-1 + 0.25 Z_t-2
 # MA(2) model with betas = 0.75, 0.25
 
-# b) Is the series stationary?
-
+# b) Is the series invertible?
+polyroot(c(1, 0.75, 0.25))
+# Yes, the roots are outside the complex unit circle
 
 # c)
 e5.ts <- arima.sim(list(order=c(0,0,2), ma=c(0.75, 0.25)), n=250)
 ggtsdisplay(e5.ts)
+# Has 2 significant contributions for the ACF, which seems 
+# reasonable given the MA(2) process.
 
 
-# TODO:
+# Test the MA(2) model
+e5.arma <- arima(e5.ts, order=c(0, 0, 2))
+e5.arma
+autoplot(e5.arma)
+
+
 # exercise 3.6
+# a)
+e6.ts1 <- arima.sim(model=list(order=c(2,0,0), ar=c(0.5, 0.25)), 
+                    n=250)
+e6.ts2 <- arima.sim(model=list(order=c(0,0,3), ma=c(0.5, 0.5, 0.5)), 
+                    n=250)
+e6.ts3 <- arima.sim(model=list(order=c(2,0,3), ar=c(0.5, 0.25),
+                    ma=c(0.5, 0.25, 0.25)),
+                    n=250)
+
 # exercise 3.7
-# exercise 3.8
-# exercise 3.10-13
+# a)
+e7.ts1 <- arima.sim(model=list(order=c(2,0,1), ma=c(0.5), 
+                               ar=c(0.5, 0.25)), n=250)
+e7.ts2 <- arima.sim(model=list(order=c(2,1,1),
+                               ar=c(0.5, 0.25), 
+                               ma=c(0.5)), n=250)
+e7.ts3 <- arima.sim(model=list(order=c(1,2,1), 
+                               ar=c(0.5),
+                               ma=c(0.5)), n=250)
+e7.ts4 <- arima.sim(model=list(order=c(1,1,2), 
+                               ar=c(0.5),
+                               ma=c(0.5, 0.25)), n=250)
+
+
+# b) 
+# Compare with exercise 3.6
+# 3.6, model 1,
+grid.arrange(autoplot(e6.ts1), autoplot(e7.ts1),
+             autoplot(e7.ts2), autoplot(e7.ts3), 
+             autoplot(e7.ts4))
+
+
+# 3.6, model 2,
+grid.arrange(autoplot(e6.ts2), autoplot(e7.ts1),
+             autoplot(e7.ts2), autoplot(e7.ts3), 
+             autoplot(e7.ts4))
+
+
+# 3.6, model 3,
+grid.arrange(autoplot(e6.ts3), autoplot(e7.ts1),
+             autoplot(e7.ts2), autoplot(e7.ts3), 
+             autoplot(e7.ts4))
+
+
+# exercise 3.10
+# X_t = (1+0.75B)(1+0.5B^6)Z_t
+
+# a)
+# Can be identified as a SARIMA(0, 0, 1)x(0, 0, 1)_6
+# model. 
+
+# b)
+e10 <- Arima(ts(rnorm(250),freq=4), 
+               order=c(0,0,1), 
+               seasonal=c(0,0,1),
+               fixed=c(Theta=0.5, theta=0.75, S=6))
+
+# Simulate
+e10.sim <- simulate(model, nsim=1000)
+ggtsdisplay(e10.sim)
+
+
+# exercise 3.13
+
+

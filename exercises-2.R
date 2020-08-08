@@ -181,6 +181,3 @@ ausb.ets.forc
 
 
 # exercise 2.4
-
-
-

@@ -161,8 +161,3 @@ ggtsdisplay(ts(ausbeer))
 # TS1 corresponds to AC2
 # TS2 corresponds to AC3
 # TS3 corresponds to AC1
-
-
-
-
-
