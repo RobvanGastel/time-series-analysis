@@ -9,3 +9,4 @@ Types of models:
 * Moving Average MA(q) models
 * Autoregressive AR(p) models
 * Mixed ARMA(p, q) models and general Box-Jenkins models
+* Dynamic Regression
